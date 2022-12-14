@@ -356,7 +356,7 @@ def test_Running_get_spent_calories(input_data, expected):
     assert hasattr(running, 'get_spent_calories'), (
         'Создайте метод `get_spent_calories` в классе `Running`.'
     )
-    result = round(running.get_spent_calories(), 3)
+    result = round(running.get_spent_calories, 3)
     assert type(result) == float, (
         'Переопределите метод `get_spent_calories` в классе `Running`.'
     )
