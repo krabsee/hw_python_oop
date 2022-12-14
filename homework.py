@@ -26,6 +26,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP: float = 0.65
     M_IN_KM: int = 1000
+    MIN_IN_H: int = 60
 
     def __init__(self,
                  action: int,
@@ -75,7 +76,6 @@ class Running(Training):
         super().__init__(action, duration, weight)
         self.training_name = 'Бег'
 
-    @property
     def get_spent_calories(self) -> float:
         average_speed = self.get_mean_speed(self.get_distance(), self.duration)
         spent_calories = \
@@ -170,7 +170,7 @@ def main(training: Training) -> None:
 
 
 if __name__ == '__main__':
-    packages: list[tuple[str, list[float, float, float, float]]] = [
+    packages: list[tuple[str, list]] = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
