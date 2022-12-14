@@ -43,10 +43,10 @@ class Training:
         distance_covered = self.action * self.LEN_STEP / self.M_IN_KM
         return distance_covered
 
-    def get_mean_speed(self, distance_covered, duration) -> float:
+    def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        duration = duration / self.MIN_IN_H
-        average_speed = distance_covered / duration
+        self.duration = self.duration / self.MIN_IN_H
+        average_speed = self.get_distance() / self.duration
         return average_speed
 
     def get_spent_calories(self) -> float:
@@ -80,7 +80,7 @@ class Running(Training):
     def get_distance(self) -> float:
         return super().get_distance()
 
-    def get_mean_speed(self, distance_covered, duration) -> float:
+    def get_mean_speed(self) -> float:
         return super().get_mean_speed()
 
     def get_spent_calories(self) -> float:
@@ -115,7 +115,7 @@ class SportsWalking(Training):
     def get_distance(self) -> float:
         return super().get_distance()
 
-    def get_mean_speed(self, distance_covered, duration) -> float:
+    def get_mean_speed(self) -> float:
         return super().get_mean_speed()
 
     def get_spent_calories(self) -> float:
@@ -151,7 +151,7 @@ class Swimming(Training):
     def get_distance(self) -> float:
         return super().get_distance()
 
-    def get_mean_speed(self, distance_covered, training_time) -> float:
+    def get_mean_speed(self) -> float:
         average_speed = \
             self.length_pool * self.count_pool / self.M_IN_KM \
             / self.duration
