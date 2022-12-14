@@ -45,6 +45,7 @@ class Training:
 
     def get_mean_speed(self, distance_covered, duration) -> float:
         """Получить среднюю скорость движения."""
+        duration = duration / self.MIN_IN_H
         average_speed = distance_covered / duration
         return average_speed
 
@@ -76,6 +77,12 @@ class Running(Training):
         super().__init__(action, duration, weight)
         self.training_name = 'Бег'
 
+    def get_distance(self) -> float:
+        return super().get_distance()
+
+    def get_mean_speed(self, distance_covered, duration) -> float:
+        return super().get_mean_speed()
+
     def get_spent_calories(self) -> float:
         average_speed = self.get_mean_speed(self.get_distance(), self.duration)
         spent_calories = \
@@ -92,8 +99,8 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    CALORIES_MEAN_SPEED_MULTIPLIER = 0.035
-    CALORIES_MEAN_SPEED_SHIFT = 0.029
+    CALORIES_WEIGHT_MULTIPLIER = 0.035
+    CALORIES_WEIGHT_SHIFT = 0.029
 
     def __init__(self,
                  action: int,
@@ -105,11 +112,17 @@ class SportsWalking(Training):
         self.height = height
         self.training_name = 'Спортивная ходьба'
 
+    def get_distance(self) -> float:
+        return super().get_distance()
+
+    def get_mean_speed(self, distance_covered, duration) -> float:
+        return super().get_mean_speed()
+
     def get_spent_calories(self) -> float:
         average_speed = self.get_mean_speed(self.get_distance(), self.duration)
-        spent_calories = ((self.CALORIES_MEAN_SPEED_MULTIPLIER * self.weight
+        spent_calories = ((self.CALORIES_WEIGHT_MULTIPLIER * self.weight
                            + (average_speed ** 2 / self.height)
-                           * self.CALORIES_MEAN_SPEED_SHIFT * self.weight)
+                           * self.CALORIES_WEIGHT_SHIFT * self.weight)
                           * self.duration)
         return spent_calories
 
@@ -134,6 +147,9 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
         self.training_name = 'Плавание'
+
+    def get_distance(self) -> float:
+        return super().get_distance()
 
     def get_mean_speed(self, distance_covered, training_time) -> float:
         average_speed = \
@@ -166,7 +182,7 @@ def read_package(workout_type: str, data: list) -> Training:
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
-    print(info.get_message())
+    return print(info.get_message())
 
 
 if __name__ == '__main__':
