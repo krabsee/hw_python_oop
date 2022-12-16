@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 
 
@@ -129,7 +130,7 @@ class Swimming(Training):
         )
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
     types_of_training: dict[str, type(Training)] = {'SWM': Swimming,
                                                     'RUN': Running,
@@ -137,8 +138,7 @@ def read_package(workout_type: str, data: list) -> Training:
                                                     }
     if workout_type not in types_of_training:
         raise KeyError(f'Key "{workout_type}" not found in dictionary.')
-    else:
-        return types_of_training[workout_type](*data)
+    return types_of_training[workout_type](*data)
 
 
 def main(training: Training) -> None:
